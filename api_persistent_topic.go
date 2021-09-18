@@ -11,12 +11,11 @@ package openapi
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -35,10 +34,6 @@ PersistentTopicApiService Trigger a compaction operation on a topic.
  * @param optional nil or *CompactOpts - Optional Parameters:
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
-
-type CompactOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) Compact(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *CompactOpts) (*http.Response, error) {
 	var (
@@ -116,10 +111,6 @@ PersistentTopicApiService Get the status of a compaction operation for a topic.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 @return LongRunningProcessStatus
 */
-
-type CompactionStatusOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) CompactionStatus(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *CompactionStatusOpts) (LongRunningProcessStatus, *http.Response, error) {
 	var (
@@ -217,10 +208,6 @@ This is the only REST endpoint from which non-partitioned topics could be create
  * @param optional nil or *CreateNonPartitionedTopicOpts - Optional Parameters:
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
-
-type CreateNonPartitionedTopicOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) CreateNonPartitionedTopic(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *CreateNonPartitionedTopicOpts) (*http.Response, error) {
 	var (
@@ -375,11 +362,6 @@ Creates a subscription on the topic at the specified message id
  * @param "Replicated" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type CreateSubscriptionOpts struct {
-	Authoritative optional.Bool
-	Replicated optional.Bool
-}
-
 func (a *PersistentTopicApiService) CreateSubscription(ctx context.Context, tenant string, namespace string, topic string, subscriptionName string, localVarOptionals *CreateSubscriptionOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPut
@@ -462,11 +444,6 @@ It will also delete all the partitions of the topic if it exists.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type DeletePartitionedTopicOpts struct {
-	Force optional.Bool
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) DeletePartitionedTopic(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *DeletePartitionedTopicOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodDelete
@@ -548,10 +525,6 @@ There should not be any active consumers on the subscription.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type DeleteSubscriptionOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) DeleteSubscription(ctx context.Context, tenant string, namespace string, topic string, subName string, localVarOptionals *DeleteSubscriptionOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodDelete
@@ -630,11 +603,6 @@ The topic cannot be deleted if delete is not forcefully and there&#39;s any acti
  * @param "Force" (optional.Bool) -  Stop all producer/consumer/replicator and delete topic forcefully
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
-
-type DeleteTopicOpts struct {
-	Force optional.Bool
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) DeleteTopic(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *DeleteTopicOpts) (*http.Response, error) {
 	var (
@@ -716,10 +684,6 @@ PersistentTopicApiService Expiry messages on all subscriptions of topic.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type ExpireMessagesForAllSubscriptionsOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) ExpireMessagesForAllSubscriptions(ctx context.Context, tenant string, namespace string, topic string, expireTimeInSeconds int32, localVarOptionals *ExpireMessagesForAllSubscriptionsOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
@@ -799,10 +763,6 @@ PersistentTopicApiService Expiry messages on a topic subscription.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type ExpireTopicMessagesOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) ExpireTopicMessages(ctx context.Context, tenant string, namespace string, topic string, subName string, expireTimeInSeconds int32, localVarOptionals *ExpireTopicMessagesOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
@@ -881,10 +841,6 @@ PersistentTopicApiService Get estimated backlog for offline topic.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 @return PersistentOfflineTopicStats
 */
-
-type GetBacklogOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) GetBacklog(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *GetBacklogOpts) (PersistentOfflineTopicStats, *http.Response, error) {
 	var (
@@ -983,10 +939,6 @@ PersistentTopicApiService Get the internal stats for the topic.
 @return PersistentTopicInternalStats
 */
 
-type GetInternalStatsOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) GetInternalStats(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *GetInternalStatsOpts) (PersistentTopicInternalStats, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
@@ -1083,10 +1035,6 @@ PersistentTopicApiService Return the last commit message id of topic
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 @return map[string]interface{}
 */
-
-type GetLastMessageIdOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) GetLastMessageId(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *GetLastMessageIdOpts) (map[string]interface{}, *http.Response, error) {
 	var (
@@ -1344,10 +1292,6 @@ PersistentTopicApiService Get partitioned topic metadata.
 @return PartitionedTopicMetadata
 */
 
-type GetPartitionedMetadataOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) GetPartitionedMetadata(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *GetPartitionedMetadataOpts) (PartitionedTopicMetadata, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
@@ -1443,10 +1387,6 @@ PersistentTopicApiService Get the stats for the partitioned topic.
  * @param optional nil or *GetPartitionedStatsOpts - Optional Parameters:
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
-
-type GetPartitionedStatsOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) GetPartitionedStats(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *GetPartitionedStatsOpts) (*http.Response, error) {
 	var (
@@ -1706,10 +1646,6 @@ PersistentTopicApiService Get the stats for the topic.
 @return TopicStats
 */
 
-type GetStatsOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) GetStats(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *GetStatsOpts) (TopicStats, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
@@ -1806,10 +1742,6 @@ PersistentTopicApiService Get the list of persistent subscriptions for a given t
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 @return []map[string]interface{}
 */
-
-type GetSubscriptionsOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) GetSubscriptions(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *GetSubscriptionsOpts) ([]map[string]interface{}, *http.Response, error) {
 	var (
@@ -1908,10 +1840,6 @@ PersistentTopicApiService Grant a new permission to a role on a single topic.
  * @param "Body" (optional.Interface of []string) -  Actions to be granted (produce,functions,consume)
 */
 
-type GrantPermissionsOnTopicOpts struct {
-	Body optional.Interface
-}
-
 func (a *PersistentTopicApiService) GrantPermissionsOnTopic(ctx context.Context, tenant string, namespace string, topic string, role string, localVarOptionals *GrantPermissionsOnTopicOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
@@ -1995,10 +1923,6 @@ PersistentTopicApiService Offload a prefix of a topic to long term storage
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 @return OffloadProcessStatus
 */
-
-type OffloadStatusOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) OffloadStatus(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *OffloadStatusOpts) (OffloadProcessStatus, *http.Response, error) {
 	var (
@@ -2098,10 +2022,6 @@ PersistentTopicApiService Peek nth message on a topic subscription.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type PeekNthMessageOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) PeekNthMessage(ctx context.Context, tenant string, namespace string, topic string, subName string, messagePosition int32, localVarOptionals *PeekNthMessageOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
@@ -2183,10 +2103,6 @@ It fence cursor and disconnects all active consumers before reseting cursor.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type ResetCursorOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) ResetCursor(ctx context.Context, tenant string, namespace string, topic string, subName string, timestamp int64, localVarOptionals *ResetCursorOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
@@ -2267,11 +2183,6 @@ It fence cursor and disconnects all active consumers before reseting cursor.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
  * @param "MessageId" (optional.Interface of MessageIdImpl) -  messageId to reset back to (ledgerId:entryId)
 */
-
-type ResetCursorOnPositionOpts struct {
-	Authoritative optional.Bool
-	MessageId optional.Interface
-}
 
 func (a *PersistentTopicApiService) ResetCursorOnPosition(ctx context.Context, tenant string, namespace string, topic string, subName string, localVarOptionals *ResetCursorOnPositionOpts) (*http.Response, error) {
 	var (
@@ -2434,10 +2345,6 @@ Completely clears the backlog on the subscription.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type SkipAllMessagesOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) SkipAllMessages(ctx context.Context, tenant string, namespace string, topic string, subName string, localVarOptionals *SkipAllMessagesOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
@@ -2517,10 +2424,6 @@ PersistentTopicApiService Skipping messages on a topic subscription.
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type SkipMessagesOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) SkipMessages(ctx context.Context, tenant string, namespace string, topic string, subName string, numMessages int32, localVarOptionals *SkipMessagesOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
@@ -2599,10 +2502,6 @@ PersistentTopicApiService Terminate a topic. A topic that is terminated will not
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 @return map[string]interface{}
 */
-
-type TerminateOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) Terminate(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *TerminateOpts) (map[string]interface{}, *http.Response, error) {
 	var (
@@ -2700,10 +2599,6 @@ PersistentTopicApiService Offload a prefix of a topic to long term storage
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
 
-type TriggerOffloadOpts struct {
-	Authoritative optional.Bool
-}
-
 func (a *PersistentTopicApiService) TriggerOffload(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *TriggerOffloadOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPut
@@ -2779,10 +2674,6 @@ PersistentTopicApiService Unload a topic
  * @param optional nil or *UnloadTopicOpts - Optional Parameters:
  * @param "Authoritative" (optional.Bool) -  Is authentication required to perform this operation
 */
-
-type UnloadTopicOpts struct {
-	Authoritative optional.Bool
-}
 
 func (a *PersistentTopicApiService) UnloadTopic(ctx context.Context, tenant string, namespace string, topic string, localVarOptionals *UnloadTopicOpts) (*http.Response, error) {
 	var (
